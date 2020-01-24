@@ -1,5 +1,17 @@
 # 1. Getting started
 
+## Concept
+The main propose of following a test-driven devepment schema is to esure good code quality and to get code that is well maintainable.  
+This is accomplished by:
+
+1. Enusing all code works as intendet
+2. Folloing the test-driven approach generally leads to better factorized code 
+
+The value of 1. is instantly clear, since testing a function does exactly this. Just that in a test-driven apprach this is done on a much more systematic level than just testing the code after writing it is. In additon this systematic approach leads to a situation, where changes in some different part of the code that effect other functions are immediatly noticable.   
+The second item is less clear immediatly. The argument here is that writing testing is much easier (or even only possible) if the code factorizes functions in a meaning full way.
+
+An important additional concept is, to write the test before writing the function to be tested!
+
 ## Terminology
 Test-driven development comes with a lot of terminilogy that the reader should be familiar with. Different kinds of tests like **unit-tests** and **integration-tests**. 
 For modern programming languages, there are **testing frameworks** (or test runner), that help oganizing, automating and formalizing tests. For python, commonly used ones are `unittest` (included in the standard library) or `pytest`.
@@ -9,7 +21,7 @@ The most basic way of testing is the unit-test. It denotes a test that tests a s
 The idea of a unit-test is that a function is called with a defined input (called the **test step**) and the return value is compared to the expected output (called the **test assertion**). 
 
 ### Integration-test
-An integration-test, tests if different components of your application interact in the expected way. This makes unit-tests so important when following the test-driven approach. If the integration-test fails, a good set of unit-test can help with finding the problem quickly.
+An integration-test, tests if different components of your application interact in the expected way. If the integration-test fails, a good set of unit-test can help with finding the problem quickly.
 
 ### Testing frameworks
 
@@ -42,6 +54,9 @@ A mock is a object that acts as a outside dependency with defined attributes. Th
 
 #### side effect
 Often looking at the return value is not the only thing a test need to check. A piece of code will often alter e.g. some class atribute. This is called a **side effect**.
+
+#### Code refactoring
+This denotes to process of taking existing code (i.e. a function) and restructuring it w/o changing the external behaviour. This is usually achieved by moving parts of the code to a function or method. Generally this process leads to code that is better readable and reduces complexity. In the context of test-driven development this additiaonlly leads to tests with less dependencies, since each "sub-functon" can be tested (or more importantly mocked) on it own.
 
 ## Writing your first test
 Let's start with testing the built-in `sum` function. The obvious unit-test for the sum function is, if the sum works correction when passing a list of values (that python can add). Let's create a file [`firstTest.py`](../examples/ch1/firstTest.py):
