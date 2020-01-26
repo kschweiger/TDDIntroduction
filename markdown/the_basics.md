@@ -417,4 +417,4 @@ Now we can run the tests again to make sure that everything still works. It does
 
 ### Final remarks
 
-The final python file can be found here: [Class](examples/ch1/calculator.py) and [Tests](examples/ch1/test_calculator.py)
+The final python file can be found here: [Class](../examples/ch1/calculator.py) and [Tests](../examples/ch1/test_calculator.py)
