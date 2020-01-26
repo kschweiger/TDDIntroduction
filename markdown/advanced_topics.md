@@ -19,7 +19,7 @@ In principl you could write a test that creates a file in the test step, then ca
 
 Instead you can patch `os.remove`:
 
-```pyhton
+```python
 import os
 import pytest
 
@@ -164,7 +164,7 @@ def checkLicencePlate(car, policeDB):
 
 You don't want test the `car` nor the `policDB` but only your new function:
 
-```
+```python
 def test_checkLicencePlatres_stolen(mocker):
     stolenCar = mocker.Mock()
     stolenCar.getLicencePlate.return_value = "ABC123"
