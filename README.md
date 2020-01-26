@@ -3,6 +3,8 @@ Introduction and examples for test-driven development in python
 
 ## Table of contents
 1. [Getting started](markdown/Getting_started.md)
+2. [The Basics](markdown/the_basics.md)
+3. [Advanced Topics](markdown/advanced_topics.md)
 
 ## Some references and links
 1. [Getting Started With Testing in Python](https://realpython.com/python-testing/#testing-your-code) on realpython.com
