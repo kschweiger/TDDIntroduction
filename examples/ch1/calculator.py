@@ -29,4 +29,4 @@ class Calculator:
     @staticmethod
     def checkInputType(var):
         if not (isinstance(var, int) or isinstance(var, float)):
-            raise TypeError("%s is not type float or int")
+            raise TypeError("%s is not type float or int but %s"%(var, type(var)))

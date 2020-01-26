@@ -7,7 +7,7 @@ This chapter will cover
 - test parametrization
 
 ## Writing your first test
-Let's start with testing the built-in `sum` function. The obvious unit-test for the sum function is, if the sum works correction when passing a list of values (that python can add). Let's create a file [`firstTest.py`](../examples/ch1/firstTest.py):
+Let's start with testing the built-in `sum` function. One obvious unit-test for the sum function is, if the sum works correction when passing a list of values (that python can add). Let's create a file [`firstTest.py`](../examples/ch1/firstTest.py):
 
 ```python
 import unittest
@@ -18,7 +18,7 @@ class TestSum(unittest.TestCase):
         self.assertEqual(res, 12)
 ```
 
-As discussed previously `unittest` requires all test to be a method in a classes inheriting from `unittest.TestCase`-class. In this examples the test `test_sum` executes the sum of 2,4 and 6 and we check with ` self.assertEqual` if the sum is equal to 12 (which is true in this case :wink:). To execute this test from the CLI you would run:
+As discussed previously `unittest` requires all test to be a method in a classes inheriting from the `unittest.TestCase`-class. In this examples the test `test_sum` executes the sum of 2,4 and 6 and we check with ` self.assertEqual` if the sum is equal to 12 (which is true in this case :wink:). To execute this test from the CLI you would run:
 
 ```bash
 python -m unittest firstTest.py
@@ -56,7 +56,7 @@ We immediately see, that the test fails. Checking the output more closely, it te
 
 ----
 
-Another commonly used test one want to run is, if exepctions are handled as expected. `unittest` provides special syntax for this with the `self.assertRaises` method.      
+Another commonly used is, if exceptions are handled as expected. `unittest` provides special syntax for this with the `self.assertRaises` method.      
 We know that the sum returns a `TypeError` if a values is passed that can not be summed (like a `string`). So let's add a test to our `TestSum` class:
 
 ```
@@ -87,7 +87,7 @@ Note: `pytest` needs to be installed with `pip intall pytest` first.
 
 The following code examples will be wrtitting using the `pytest` testing framework. All the concepts are transferrable to the `unittest` framework.
 
--------
+### Basic class and tests
 
 Let's start with a simple class structure:
 
@@ -192,7 +192,9 @@ def test_calculator_divide(theCalculator):
     assert theCalculator.divide(6,2) == 3
 ```
 
-Let's parametrize the tests so we can check that the caluclator does not only work by chance with the number we choose. In `pytest` parametrization is also added via a function decorator: `@pytest.mark.parametrize()`.
+### Test parameterization
+
+Let's parametrize the tests so we can check that the caluclator does not only work by chance with the number we choose. In `pytest` parametrization is added via a function decorator: `@pytest.mark.parametrize()`.
 
 The syntax here a bit confusing. Inside the decorator, first a the parameter names (string) are set. And then a list is passed as the next parameter. The list contains tuples for each set of paramters to be tested. The elements in the tuple need to correspond to the number of parameter names. In case of one paramter we can just pass a list of values.
 
@@ -200,7 +202,7 @@ The syntax here a bit confusing. Inside the decorator, first a the parameter nam
 @pytest.mark.parametrize("v1, v2", [(2, 6), (1, 2), (1.2, 3.2)])
 ```
 
-This decorator results in three test (since the list contains 3 tuples). Let's add this to the tests:
+This decorator results in three tests (since the list contains 3 tuples). Here one could argue, that the result should also be a paramter so we can actually see if the class behaves as we expect since our class methods are basically only wrappers for the usual python behaviors for `+`, `-`, `*` and `/`. For the sake of keeping this example simple, we will not do that. Let's add this to the tests:
 
 ```
 from calculator import Calculator
@@ -342,37 +344,37 @@ class Calculator:
     
     def add(self, v1, v2):
         if not (isinstance(v1, int) or isinstance(v1, float)):
-            raise TypeError("%s is not type float or int")
+            raise TypeError("v1 is not type float or int")
         if not (isinstance(v2, int) or isinstance(v2, float)):
-            raise TypeError("%s is not type float or int")
+            raise TypeError("v2 is not type float or int")
         
         return v1 + v2
 
     def substract(self, v1, v2):
         if not (isinstance(v1, int) or isinstance(v1, float)):
-            raise TypeError("%s is not type float or int")
+            raise TypeError("v1 is not type float or int")
         if not (isinstance(v2, int) or isinstance(v2, float)):
-            raise TypeError("%s is not type float or int")
+            raise TypeError("v2 is not type float or int")
 
         return v1 - v2
     
     def multiply(self, v1, v2):
         if not (isinstance(v1, int) or isinstance(v1, float)):
-            raise TypeError("%s is not type float or int")
+            raise TypeError("v1 is not type float or int")
         if not (isinstance(v2, int) or isinstance(v2, float)):
-            raise TypeError("%s is not type float or int")
+            raise TypeError("v2 is not type float or int")
         return v1 * v2
         
     def divide(self, v1, v2):
         if not (isinstance(v1, int) or isinstance(v1, float)):
-            raise TypeError("%s is not type float or int")
+            raise TypeError("v1 is not type float or int")
         if not (isinstance(v2, int) or isinstance(v2, float)):
-            raise TypeError("%s is not type float or int")
+            raise TypeError("v2 is not type float or int")
 
         return v1 / v2
 ```
 
-
+### Refactor the code
 
 We now notice that this is quite convoluted. The type check is the same in all method. So let's **refactor**! By moving the type check to a staticmethod we can get rid of a bit code and improve readability and maintainability:
 
@@ -408,9 +410,11 @@ class Calculator:
     @staticmethod
     def checkInputType(var):
         if not (isinstance(var, int) or isinstance(var, float)):
-            raise TypeError("%s is not type float or int")
+            raise TypeError("%s is not type float or int but %s"%(var, type(var)))
 ```
 
 Now we can run the tests again to make sure that everything still works. It does :D
+
+### Final remarks
 
 The final python file can be found here: [Class](examples/ch1/calculator.py) and [Tests](examples/ch1/test_calculator.py)
