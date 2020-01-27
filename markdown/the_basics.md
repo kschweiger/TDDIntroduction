@@ -94,7 +94,7 @@ Let's start with a simple class structure:
 ```python
 class Calculator:
     def __init__(self):
-		pass
+        pass
 	
     def add(self, v1, v2):
         pass
