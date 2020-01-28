@@ -119,22 +119,22 @@ import pytest
 def test_calculator_add():
     theCalculator = Calculator()
     
-    assert theCalculator(2,6) == 8
+    assert theCalculator.add(2,6) == 8
 
 def test_calculator_substract():
     theCalculator = Calculator()
     
-    assert theCalculator(6,2) == 4
+    assert theCalculator.substract(6,2) == 4
 
 def test_calculator_multiply():
     theCalculator = Calculator()
     
-    assert theCalculator(6,2) == 12
+    assert theCalculator.multiply(6,2) == 12
 
 def test_calculator_divide():
     theCalculator = Calculator()
     
-    assert theCalculator(6,2) == 3
+    assert theCalculator.divide(6,2) == 3
 ```
 
 Running the test file result (obviously) in 4 failed test, since we did not implement anything in the calculator class. So lets change that.
