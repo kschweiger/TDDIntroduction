@@ -2,20 +2,20 @@
 
 This chapter will cover advanced topics that will be very usefull when testing more complicated code. 
 
-Also in this chapter the examples will be for the `pytest` module.
+Also in this chapter the examples are using the `pytest` module.
 
-## Mocking external dependencies
+## Mocking 
 
-When testing your code/class/framework you proabably use external modules or file that you either don't want to test or can't test. Mocking is a way to simulates the dependecies (or what you excpet as input for your functions) within a testing framework.
+When testing your code/class/framework you proabably use external modules or file that you either don't want to test or can't test. Mocking is a way to simulates these dependecies (or what you expect as input for your functions) within a testing framework.
 
 A extended introduction can be found [here on RealPython](https://realpython.com/python-mock-library/).
 
 ### Patching 
 
-One common usuage is to patch a function of an external dependency.     
-Let's say, that your project includes a operations with the filesystem via `remove` function of the `os` module. 
+One common use case is to patch a function of an external dependency.     
+Let's say, that your project includes a operation with the filesystem via `remove` from the `os` module. 
 
-In principl you could write a test that creates a file in the test step, then calles the function and then checks if the function is still on the file system in the test assertion step.   
+In principl you could write a test that creates a file in the test step, calls the function and finally checks if the function is still on the file system in the test assertion step.
 
 Instead you can patch `os.remove`:
 
@@ -34,9 +34,9 @@ def test_fs_remove(mocker):
     os.remove.assert_called_once_with("filename.txt")
 ```
 
-With `mocker.patch` you tell pytest that `os.remove` should be replaces with a `Mock` object that can be used by test for assertions. The `Mock` object has the `assert_called_once_with` method, which can be used to check if the function was called and with what. 
+With `mocker.patch` you tell pytest that `os.remove` should be replaced with a `Mock` object that can be used by during the test for assertions. The `Mock` object has the `assert_called_once_with` method which can be used to check if the function was called and with what. 
 
-This is not necessarily useful in all cases but is supports a wide array of additional functionality. Here are some examples:
+This method is not necessarily useful in all cases but the `Mock` object supports a wide array of additional functionality. Here are some examples:
 
 #### `return_value`
 
@@ -72,7 +72,7 @@ def test_fs_list_exception(mocker):
         FS.getFiles(1)
 ```
 
-To some extent `side_effect` and `return_value` can be used to achive the same behavior. 
+To some extent `side_effect` and `return_value` can be used to achieve the same behavior. 
 
 #### Opening files
 
@@ -83,7 +83,7 @@ line1
 line2
 ```
 
-We add a method that open a file and return the lines as list:
+We add a method that opens a file and returns the lines as a `list`:
 
 ```python
 @staticmethod
@@ -92,7 +92,7 @@ def openFile(filename):
         return [l for l in f.read().split("\n") if l != ""]
 ```
 
-The initial idea would be to just path the open and give it a return value:
+The initial idea would be to just patch the open and give it a return value:
 
 ```python
 def test_fs_open(mocker):
@@ -184,7 +184,36 @@ def test_checkLicencePlatres_notStolen(mocker):
     assert not checkLicencePlate(notStolenCar, thisPoliceDB)
 ```
 
-Generally, calling a Attirbute of a `Mock` object, it is automatically created and can be i.e. checked if it was called and with what. But we can also create attributes (like `thisPoliceDB.stolenCars`) or functions with return values (`stolenCar.getLicencePlate.return_value`).
+Generally, when calling a Attirbute of a `Mock` object, it is automatically created. But we can also create attributes (like `thisPoliceDB.stolenCars`) or functions with return values (`stolenCar.getLicencePlate.return_value`).
+
+### Note on mocking standard library modules
+
+Let's say, you include `os.path` in your module and used `isfile` to check if a file is present. Let's call the module `MyAmazingModule`.
+
+If you now mock the `isfile` with `mocker.patch.object(os.path, "isfile", True)` it works but this mocks `isfile` also in your test script and all other dependencies you include! In practice, this means that if you want to use `os.path.isfile` in your test it will also always return `True`.
+
+Obviously there is a way to only mock it in the module `MyAmazingModule`. In principle `mocker.patch.object(MyAmazingModule.os.path, "isfile", , return_value=True)` should work but for some reason this is not always the case :man_shrugging:. It certainly works if you do `from os.path import isfile` in `MyAmazingModule` and then patch it with `mocker.patch.object(MyAmazingModule, "isfile", return_value=True)`.
+
+## monkeypatching
+
+If it not necessary to replace a whole object but only a single function/class/attribute, `monkeypatch` can be used. This does not give you any additioninal information like checking how many time the function was called.
+
+Examples for situation where monkeypatching is useful:
+
+An external dependency `module` uses a global variable `gVar` to save some state which is expected to be `expectedValue` for your test: 
+
+```python
+ monkeypatch.setattr(module, "gVar", expectedValue)
+```
+
+You are testing a method `method2` of your class `C` that requires the output `method1_value` of `method1`. Method `method1` is tested in a separate test  (`method1_value` can also be a function).
+
+```python
+monkeypatch.settatrr(C, "method1", method1_value)
+```
+
+See [this documentation](https://docs.pytest.org/en/latest/monkeypatch.html) for more information on monkeypatching in pytest.
+
 
 -------
 

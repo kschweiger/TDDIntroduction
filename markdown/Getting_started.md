@@ -1,14 +1,14 @@
 # 1. Getting started
 
 ## Concept
-The main propose of following a test-driven devepment schema is to esure good code quality and to get code that is well maintainable.  
+The main propose of following a test-driven devepment schema is to esure good code quality and to get code that is stable, predictable and well maintainable.  
 This is accomplished by:
 
 1. Enusing all code works as intendet
-2. Folloing the test-driven approach generally leads to better factorized code 
+2. Factorized code is a side product when following the test-driven approach
 
-The value of 1. is instantly clear, since testing a function does exactly this. Just that in a test-driven apprach this is done on a much more systematic level than just testing the code after writing it is. In additon this systematic approach leads to a situation, where changes in some different part of the code that effect other functions are immediatly noticable.   
-The second item is less clear immediatly. The argument here is that writing testing is much easier (or even only possible) if the code factorizes functions in a meaning full way.
+The value of 1. is instantly clear. Since testing a function does exactly this, only that in a test-driven apprach this is done on a much more systematic level than just testing the code after writing it is. In additon this systematic approach leads to a situation, where changes in some part of the code that effect other functions are immediatly noticable.   
+The second item is less clear immediatly. The argument here is that writing testing is much easier (or even possible) if the code factorizes functions in a meaning full way.
 
 An important additional concept is, to write the test before writing the function to be tested!
 
@@ -26,14 +26,14 @@ An integration-test, tests if different components of your application interact 
 ### Testing frameworks
 
 #### unittest 
-The unittest module is part of the python standard library since 2.1 and therefore can be used in almost any installation without problems. Setting a tests with unittest requires 
+The unittest module is part of the python standard library since 2.1 and can be used in almost any installation without problems. Setting a tests with unittest requires 
 
 - To put your test into class (inheriting from `unittest.TestCase`) methods 
-- Use a set of special assertion methods from the `unittest.TestCase` modules instead of the built-in assertion.
+- Use a set of special assertion methods from the `unittest.TestCase` module instead of the built-in assertion.
 
 
 #### pytest
-[Pytest](https://pytest.org/en/latest/) builds on the foundations of unittest (and works very similar) but simplifies the how tests have to written and evaluated. In contrast to `unittest` the tests in `pytest` do not need 
+[Pytest](https://pytest.org/en/latest/) builds on the foundations of unittest (and works very similar) but simplifies how tests have to be written and evaluated. In contrast to `unittest` the tests in `pytest` do not need 
 
 - to be be a method of a `unittest.TestCase`-type class or 
 - use the special assertion methods.
@@ -47,13 +47,13 @@ Other great features are:
 ### Other commonly used terms
 
 #### coverage
-For coverage the test runner records with lines of the code are actually run during the tests. The ratio between executed lines and all lines of the code is called the coverage. Ideally to coverage of your project should be as high as possible.
+For coverage the test runner records with lines of the code are actually run during the tests. The ratio between executed lines and all lines of the code is called the coverage. Ideally to coverage of your project should be 100%.
 
 #### mock
-A mock is a object that acts as a outside dependency with defined attributes. This is e.g. required if your test need some input from a third party dependency which you don't want to test. More on this will be covered in [Add link]().
+A mock is a object that acts as a dependency with defined attributes. This is i.e. required if your test needs some input from a third party dependency which you don't want to test. More on this will be covered in the [advanced topics section](advanced_topics.md).
 
 #### side effect
-Often looking at the return value is not the only thing a test need to check. A piece of code will often alter e.g. some class atribute. This is called a **side effect**.
+Often looking at the return value is not the only thing a test need to check. A piece of code will often alter i.e. some class atribute. This is called a **side effect**.
 
 #### Code refactoring
 This denotes to process of taking existing code (i.e. a function) and restructuring it w/o changing the external behaviour. This is usually achieved by moving parts of the code to a function or method. Generally this process leads to code that is better readable and reduces complexity. In the context of test-driven development this additiaonlly leads to tests with less dependencies, since each "sub-functon" can be tested (or more importantly mocked) on it own.
