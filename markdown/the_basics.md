@@ -285,7 +285,7 @@ So let's add some check to the class method:
         return v1 + v2
 ```
 
-Now all tests are passing. We probably want that for all methods so let's add the tests for the others. After adding just the same tests (just changing the calculator method) we see that the test are passing even if we don't add a check. The reason is that python raises TypeErrors for i.e. when strings are multiplied anyways. But e.g. a int and string can be multiplied w/o problems so let's change the parametrization to:
+Now all tests are passing. We probably want that for all methods so let's add the tests for the others. After adding just the same tests (just changing the calculator method) we see that the test are passing even if we don't add a check. The reason is that python raises TypeErrors for example when strings are multiplied anyways. But e.g. a int and string can be multiplied w/o problems so let's change the parametrization to:
 
 `@pytest.mark.parametrize("v1, v2", [(2, ["6"]), (2,"6")])`.
 

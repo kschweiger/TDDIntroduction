@@ -53,13 +53,13 @@ Other great features are:
 For coverage the test runner records with lines of the code are actually run during the tests. The ratio between executed lines and all lines of the code is called the coverage. Ideally to coverage of your project should be 100%.
 
 #### mock
-A mock is a object that acts as a dependency with defined attributes. This is i.e. required if your test needs some input from a third party dependency which you don't want to test. More on this will be covered in the [advanced topics section](advanced_topics.md).
+A mock is a object that acts as a dependency with defined attributes. This is e.g. required if your test needs some input from a third party dependency which you don't want to test. More on this will be covered in the [advanced topics section](advanced_topics.md).
 
 #### side effect
-Often looking at the return value is not the only thing a test need to check. A piece of code will often alter i.e. some class attribute. This is called a **side effect**.
+Often looking at the return value is not the only thing a test need to check. A piece of code will often alter e.g. some class attribute. This is called a **side effect**.
 
 #### Code refactoring
-This denotes to process of taking existing code (i.e. a function) and restructuring it w/o changing the external behavior. This is usually achieved by moving parts of the code to a function or method. Generally this process leads to code that is better readable and reduces complexity. In the context of test-driven development this additionally leads to tests with less dependencies, since each "sub-functon" can be tested (or more importantly mocked) on it own.
+This denotes to process of taking existing code (like a function) and restructuring it w/o changing the external behavior. This is usually achieved by moving parts of the code to a function or method. Generally this process leads to code that is better readable and reduces complexity. In the context of test-driven development this additionally leads to tests with less dependencies, since each "sub-functon" can be tested (or more importantly mocked) on it own.
 
 
 
