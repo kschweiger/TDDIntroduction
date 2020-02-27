@@ -34,7 +34,7 @@ Ran 1 test in 0.000s
 OK
 ```
 
-Unsurpisingly this worked out great. If we change the expected value to 11 (which is obviously wrong but for the sake of this introduction we want to see the output) we get:
+Unsurprisingly this worked out great. If we change the expected value to 11 (which is obviously wrong but for the sake of this introduction we want to see the output) we get:
 
 ```bash
 F
@@ -85,7 +85,7 @@ Note: `pytest` needs to be installed with `pip intall pytest` first.
 
 ## Practival Example: A calculator
 
-The following code examples will be wrtitting using the `pytest` testing framework. All the concepts are transferrable to the `unittest` framework.
+The following code examples will be written using the `pytest` testing framework. All the concepts are transferrable to the `unittest` framework.
 
 ### Basic class and tests
 
@@ -110,7 +110,7 @@ class Calculator:
         
 ```
 
-Before further wrinting the actual class methods, let's start with writing tests:
+Before writing the actual class methods, let's start with writing tests:
 
 ```python
 from calculator import Calculator
@@ -137,7 +137,7 @@ def test_calculator_divide():
     assert theCalculator.divide(6,2) == 3
 ```
 
-Running the test file result (obviously) in 4 failed test, since we did not implement anything in the calculator class. So lets change that.
+Running the test file result (obviously) in 4 failed test, since we did not implement anything in the calculator class. So let's change that.
 
 ```python
 class Calculator:
@@ -195,15 +195,15 @@ def test_calculator_divide(theCalculator):
 
 ### Test parameterization
 
-Let's parametrize the tests so we can check that the caluclator does not only work by chance with the number we choose. In `pytest` parametrization is added via a function decorator: `@pytest.mark.parametrize()`.
+Let's parametrize the tests so we can check that the calculator does not only work by chance with the number we choose. In `pytest` parametrization is added via a function decorator: `@pytest.mark.parametrize()`.
 
-The syntax here a bit confusing. Inside the decorator, first a the parameter names (string) are set. And then a list is passed as the next parameter. The list contains tuples for each set of paramters to be tested. The elements in the tuple need to correspond to the number of parameter names. In case of one paramter we can just pass a list of values.
+The syntax here a bit confusing. Inside the decorator, first a the parameter names (string) are set. And then a list is passed as the next parameter. The list contains tuples for each set of parameters to be tested. The elements in the tuple need to correspond to the number of parameter names. In case of one parameter we can just pass a list of values.
 
 ```
 @pytest.mark.parametrize("v1, v2", [(2, 6), (1, 2), (1.2, 3.2)])
 ```
 
-This decorator results in three tests (since the list contains 3 tuples). Here one could argue, that the result should also be a paramter so we can actually see if the class behaves as we expect since our class methods are basically only wrappers for the usual python behaviors for `+`, `-`, `*` and `/`. For the sake of keeping this example simple, we will not do that. Let's add this to the tests:
+This decorator results in three tests (since the list contains 3 tuples). Here one could argue, that the result should also be a parameter so we can actually see if the class behaves as we expect since our class methods are basically only wrappers for the usual python behaviors for `+`, `-`, `*` and `/`. For the sake of keeping this example simple, we will not do that. Let's add this to the tests:
 
 ```
 from calculator import Calculator
@@ -285,11 +285,11 @@ So let's add some check to the class method:
         return v1 + v2
 ```
 
-Now all tests are passing. We probably want that for all methods so let's add the tests for the others. After adding just the same tests (just changing the calcualtor method) we see that the test are passing even if we don't add a check. The reason is that python raises TypeErrors for i.e. when strings are multiplied anyways. But e.g. a int and string can be multiplied w/o problems so let's change the parametrization to:
+Now all tests are passing. We probably want that for all methods so let's add the tests for the others. After adding just the same tests (just changing the calculator method) we see that the test are passing even if we don't add a check. The reason is that python raises TypeErrors for i.e. when strings are multiplied anyways. But e.g. a int and string can be multiplied w/o problems so let's change the parametrization to:
 
 `@pytest.mark.parametrize("v1, v2", [(2, ["6"]), (2,"6")])`.
 
-As expcted the test fail now. Adding the same type check to the multiplication method makes them pass again. We should probably add type combinations like this to the other test aswell. Technically we would not need to add the check to substraction (since it always raises a type error) but we can use this and add a custom error message so the user knows why it fails in any case. 
+As expected the test fail now. Adding the same type check to the multiplication method makes them pass again. We should probably add type combinations like this to the other test as well. Technically we would not need to add the check to the subtraction (since it always raises a type error) but we can use this and add a custom error message so the user knows why it fails in any case. 
 
 With this we arrive at the following for the **tests**
 
@@ -377,7 +377,7 @@ class Calculator:
 
 ### Refactor the code
 
-We now notice that this is quite convoluted. The type check is the same in all method. So let's **refactor**! By moving the type check to a staticmethod we can get rid of a bit code and improve readability and maintainability:
+We now notice that this is quite convoluted. The type check is the same in all method. So let's **refactor**! By moving the type check to a `staticmethd` we can get rid of a bit code and improve readability and maintainability:
 
 ```python
 class Calculator:

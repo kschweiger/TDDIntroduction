@@ -1,20 +1,23 @@
 # 1. Getting started
 
 ## Concept
-The main propose of following a test-driven devepment schema is to esure good code quality and to get code that is stable, predictable and well maintainable.  
+
+
+
+The main propose of following a test-driven development schema is to ensure good code quality and to get code that is stable, predictable and well maintainable.
 This is accomplished by:
 
-1. Enusing all code works as intendet
+1. Ensuing all code works as intended
 2. Factorized code is a side product when following the test-driven approach
 
-The value of 1. is instantly clear. Since testing a function does exactly this, only that in a test-driven apprach this is done on a much more systematic level than just testing the code after writing it is. In additon this systematic approach leads to a situation, where changes in some part of the code that effect other functions are immediatly noticable.   
-The second item is less clear immediatly. The argument here is that writing testing is much easier (or even possible) if the code factorizes functions in a meaning full way.
+The value of 1. is instantly clear. Since testing a function does exactly this, only that in a test-driven approach this is done on a much more systematic level than just testing the code after writing it is. In addition this systematic approach leads to a situation, where changes in some part of the code that effect other functions are immediately noticeable.
+The second item is less clear immediately. The argument here is that writing testing is much easier (or even possible) if the code factorizes functions in a meaning full way.
 
 An important additional concept is, to write the test before writing the function to be tested!
 
 ## Terminology
-Test-driven development comes with a lot of terminilogy that the reader should be familiar with. Different kinds of tests like **unit-tests** and **integration-tests**. 
-For modern programming languages, there are **testing frameworks** (or test runner), that help oganizing, automating and formalizing tests. For python, commonly used ones are `unittest` (included in the standard library) or `pytest`.
+Test-driven development comes with a lot of terminology that the reader should be familiar with. Different kinds of tests like **unit-tests** and **integration-tests**. 
+For modern programming languages, there are **testing frameworks** (or test runner), that help organizing, automating and formalizing tests. For python, commonly used ones are `unittest` (included in the standard library) or `pytest`.
 
 ### Unit-test
 The most basic way of testing is the unit-test. It denotes a test that tests a single function.     
@@ -33,7 +36,7 @@ The unittest module is part of the python standard library since 2.1 and can be 
 
 
 #### pytest
-[Pytest](https://pytest.org/en/latest/) builds on the foundations of unittest (and works very similar) but simplifies how tests have to be written and evaluated. In contrast to `unittest` the tests in `pytest` do not need 
+[Pytest](https://pytest.org/en/latest/) builds on the foundations of `unittest` (and works very similar) but simplifies how tests have to be written and evaluated. In contrast to `unittest` the tests in `pytest` do not need 
 
 - to be be a method of a `unittest.TestCase`-type class or 
 - use the special assertion methods.
@@ -53,10 +56,10 @@ For coverage the test runner records with lines of the code are actually run dur
 A mock is a object that acts as a dependency with defined attributes. This is i.e. required if your test needs some input from a third party dependency which you don't want to test. More on this will be covered in the [advanced topics section](advanced_topics.md).
 
 #### side effect
-Often looking at the return value is not the only thing a test need to check. A piece of code will often alter i.e. some class atribute. This is called a **side effect**.
+Often looking at the return value is not the only thing a test need to check. A piece of code will often alter i.e. some class attribute. This is called a **side effect**.
 
 #### Code refactoring
-This denotes to process of taking existing code (i.e. a function) and restructuring it w/o changing the external behaviour. This is usually achieved by moving parts of the code to a function or method. Generally this process leads to code that is better readable and reduces complexity. In the context of test-driven development this additiaonlly leads to tests with less dependencies, since each "sub-functon" can be tested (or more importantly mocked) on it own.
+This denotes to process of taking existing code (i.e. a function) and restructuring it w/o changing the external behavior. This is usually achieved by moving parts of the code to a function or method. Generally this process leads to code that is better readable and reduces complexity. In the context of test-driven development this additionally leads to tests with less dependencies, since each "sub-functon" can be tested (or more importantly mocked) on it own.
 
 
 

@@ -1,25 +1,25 @@
 import pytest
 
-def checkLicencePlate(car, policeDB):
-    if car.getLicencePlate() in policeDB.stolenCars:
+def checkLicensePlate(car, policeDB):
+    if car.getLicensePlate() in policeDB.stolenCars:
         return True
     else:
         return False
     
-def test_checkLicencePlatres_stolen(mocker):
+def test_checkLicensePlatres_stolen(mocker):
     stolenCar = mocker.Mock()
-    stolenCar.getLicencePlate.return_value = "ABC123"
+    stolenCar.getLicensePlate.return_value = "ABC123"
     
     thisPoliceDB = mocker.Mock()
     thisPoliceDB.stolenCars = ["ABC123", "DEF456"]
     
-    assert checkLicencePlate(stolenCar, thisPoliceDB)
+    assert checkLicensePlate(stolenCar, thisPoliceDB)
 
-def test_checkLicencePlatres_notStolen(mocker):
+def test_checkLicensePlatres_notStolen(mocker):
     notStolenCar = mocker.Mock()
-    notStolenCar.getLicencePlate.return_value = "GHI789"
+    notStolenCar.getLicensePlate.return_value = "GHI789"
 
     thisPoliceDB = mocker.Mock()
     thisPoliceDB.stolenCars = ["ABC123", "DEF456"]
     
-    assert not checkLicencePlate(notStolenCar, thisPoliceDB)
+    assert not checkLicensePlate(notStolenCar, thisPoliceDB)

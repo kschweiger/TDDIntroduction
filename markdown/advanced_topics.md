@@ -1,21 +1,21 @@
 # Advanced Topics
 
-This chapter will cover advanced topics that will be very usefull when testing more complicated code. 
+This chapter will cover advanced topics that will be very useful when testing more complicated code. 
 
 Also in this chapter the examples are using the `pytest` module.
 
 ## Mocking 
 
-When testing your code/class/framework you proabably use external modules or file that you either don't want to test or can't test. Mocking is a way to simulates these dependecies (or what you expect as input for your functions) within a testing framework.
+When testing your code/class/framework you proabably use external modules or file that you either don't want to test or can't test. Mocking is a way to simulate these dependencies (or what you expect as input for your functions) within a testing framework.
 
 A extended introduction can be found [here on RealPython](https://realpython.com/python-mock-library/).
 
 ### Patching 
 
 One common use case is to patch a function of an external dependency.     
-Let's say, that your project includes a operation with the filesystem via `remove` from the `os` module. 
+Let's say, that your project includes an operation with the filesystem via `remove` from the `os` module. 
 
-In principl you could write a test that creates a file in the test step, calls the function and finally checks if the function is still on the file system in the test assertion step.
+In principle you could write a test that creates a file in the test step, calls the function and finally checks if the function is still on the file system in the test assertion step.
 
 Instead you can patch `os.remove`:
 
@@ -62,7 +62,7 @@ is a function that is called every time the patched function is called. Some exa
 - It can be used to raise exceptions
 - If it is a iterable every time the function is called it will return the next value
 
-Here we use the function from the last example but instead of mocking the return value we make the mocked function retrun a `KeyError` as the `glob.glob` would if passing a `int`:
+Here we use the function from the last example but instead of mocking the return value we make the mocked function return a `KeyError` as the `glob.glob` would if passing a `int`:
 
 ```python
 def test_fs_list_exception(mocker):
@@ -150,13 +150,13 @@ The full code for these examples can be found in the file [mocker_1.py](../examp
 
 -----
 
-#### Mock all attribtues of a object you need for your code
+#### Mock all attributes of a object you need for your code
 
-You want to write a function that uses to objects and compares attributes of each of them. For the sake of this example, let's assume you have a function that checks the Licence plate of a car (`car.licencePlate`) agains all stolen cars in a plolice database (`policeDB.stolenCars`):
+You want to write a function that uses to objects and compares attributes of each of them. For the sake of this example, let's assume you have a function that checks the License plate of a car (`car.licensePlate`) agains all stolen cars in a ploice database (`policeDB.stolenCars`):
 
 ```python
-def checkLicencePlate(car, policeDB):
-    if car.licencePlate in policeDB.stolenCars:
+def checkLicensePlate(car, policeDB):
+    if car.licensePlate in policeDB.stolenCars:
         return True
     else:
         return False 
@@ -165,26 +165,33 @@ def checkLicencePlate(car, policeDB):
 You don't want test the `car` nor the `policDB` but only your new function:
 
 ```python
-def test_checkLicencePlatres_stolen(mocker):
+def test_checkLicensePlatres_stolen(mocker):
     stolenCar = mocker.Mock()
-    stolenCar.getLicencePlate.return_value = "ABC123"
+    stolenCar.getLicensePlate.return_value = "ABC123"
 
     thisPoliceDB = mocker.Mock()
     thisPoliceDB.stolenCars = ["ABC123", "DEF456"]
     
-    assert checkLicencePlate(stolenCar, thisPoliceDB)
+    assert checkLicensePlate(stolenCar, thisPoliceDB)
 
-def test_checkLicencePlatres_notStolen(mocker):
+def test_checkLicensePlatres_notStolen(mocker):
     notStolenCar = mocker.Mock()
-    notStolenCar.getLicencePlate.return_value = "GHI789"
+    notStolenCar.getLicensePlate.return_value = "GHI789"
 
     thisPoliceDB = mocker.Mock()
     thisPoliceDB.stolenCars = ["ABC123", "DEF456"]
     
-    assert not checkLicencePlate(notStolenCar, thisPoliceDB)
+    assert not checkLicensePlate(notStolenCar, thisPoliceDB)
 ```
 
-Generally, when calling a Attirbute of a `Mock` object, it is automatically created. But we can also create attributes (like `thisPoliceDB.stolenCars`) or functions with return values (`stolenCar.getLicencePlate.return_value`).
+Generally, when calling an Attribute of a `Mock` object, it is automatically created. But we can also create attributes (like `thisPoliceDB.stolenCars`) or functions with return values (`stolenCar.getLicensePlate.return_value`).
+
+-------
+
+The full code for these examples can be found in the file [mocker_2.py](../examples/ch2/mocker_2.py).
+
+-----
+
 
 ### Note on mocking standard library modules
 
@@ -196,7 +203,7 @@ Obviously there is a way to only mock it in the module `MyAmazingModule`. In pri
 
 ## monkeypatching
 
-If it not necessary to replace a whole object but only a single function/class/attribute, `monkeypatch` can be used. This does not give you any additioninal information like checking how many time the function was called.
+If it not necessary to replace a whole object but only a single function/class/attribute, `monkeypatch` can be used. This does not give you any additional information like checking how many time the function was called.
 
 Examples for situation where monkeypatching is useful:
 
@@ -215,11 +222,6 @@ monkeypatch.settatrr(C, "method1", method1_value)
 See [this documentation](https://docs.pytest.org/en/latest/monkeypatch.html) for more information on monkeypatching in pytest.
 
 
--------
-
-The full code for these examples can be found in the file [mocker_2.py](../examples/ch2/mocker_2.py).
-
------
 
 
 
