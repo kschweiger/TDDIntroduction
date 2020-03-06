@@ -83,7 +83,7 @@ The same tests but using `pytest` can be found in the file: [`firstTest_pytest.p
 Note: `pytest` needs to be installed with `pip intall pytest` first.
 
 
-## Practival Example: A calculator
+## Example: A calculator
 
 The following code examples will be written using the `pytest` testing framework. All the concepts are transferrable to the `unittest` framework.
 
